@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Fonts */
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Outfit', sans-serif;
+
+  /* Dark Theme Colors */
+  --bg-dark: #07090e;
+  --bg-dark-panel: rgba(15, 20, 32, 0.6);
+  --bg-dark-card: rgba(23, 29, 44, 0.7);
+  --border-dark: rgba(194, 159, 93, 0.15);
+  --text-dark-primary: #f8fafc;
+  --text-dark-secondary: #94a3b8;
+
+  /* Gold / Bronze Accent Colors */
+  --gold-primary: #c29f5d;
+  --gold-hover: #e5c17d;
+  --gold-glow: rgba(194, 159, 93, 0.3);
+  --gold-gradient: linear-gradient(135deg, #c29f5d 0%, #9a7b43 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #e5c17d 0%, #b8985c 100%);
+
+  /* Light Cream Theme Colors (For About Me) */
+  --bg-cream: #faf8f5;
+  --bg-cream-panel: #f5f0e6;
+  --bg-cream-card: #ffffff;
+  --border-cream: rgba(154, 123, 67, 0.2);
+  --text-cream-primary: #1c1917;
+  --text-cream-secondary: #57534e;
+
+  /* Utilities */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --border-radius-lg: 16px;
+  --border-radius-md: 8px;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-dark-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: var(--bg-dark-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-hover);
+}
+
+/* Container limits */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Section Common Styles */
+section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-title-wrapper {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--gold-primary);
+  margin: 8px auto 0;
+}
+
+.section-subtitle {
+  color: var(--text-dark-secondary);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Premium Buttons */
+.btn-gold {
+  background: var(--gold-gradient);
+  color: #07090e;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: var(--border-radius-md);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px var(--gold-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-gold:hover {
+  background: var(--gold-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(194, 159, 93, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold-primary);
+  border: 1px solid var(--gold-primary);
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: rgba(194, 159, 93, 0.1);
+  color: var(--gold-hover);
+  border-color: var(--gold-hover);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s forwards ease-out;
+}
+
+/* Reveal on Scroll class */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-element.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typing cursor animation */
+.typing-cursor::after {
+  content: '|';
+  animation: cursorBlink 0.8s infinite;
+  color: var(--gold-primary);
+  margin-left: 2px;
+}
+
+@keyframes cursorBlink {
+  50% { opacity: 0; }
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25d366;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-smooth);
+  z-index: 999;
+}
+
+.whatsapp-floating:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
