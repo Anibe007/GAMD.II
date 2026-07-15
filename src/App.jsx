@@ -37,24 +37,62 @@ export default function App() {
       }
     }
 
-    // Migration for old portfolio items to include the new photos and delete the logo image item
+    // Migration for old portfolio items to include the new YouTube embeds and separate galleries
     const savedPortfolio = localStorage.getItem('gandu_david_gama_portfolio');
     if (savedPortfolio) {
       try {
         const parsed = JSON.parse(savedPortfolio);
         let changed = false;
-        let updated = parsed;
-        if (parsed.length <= 6) {
-          updated = portfolioItems;
-          changed = true;
-        } else {
-          // Filter out the old logo image item (id 6)
-          const filtered = parsed.filter(item => item.id !== 6);
-          if (filtered.length !== parsed.length) {
-            updated = filtered;
+        
+        // Upgrade any default video items or local videos to the new YouTube embeds
+        let updated = parsed.map(item => {
+          if (
+            (item.type === 'video' && (item.source.toLowerCase().endsWith('.mp4') || item.source.includes('/Videos/'))) ||
+            [1, 2, 3, 4].includes(item.id)
+          ) {
+            const replacement = portfolioItems.find(p => p.id === item.id);
+            if (replacement) {
+              changed = true;
+              return replacement;
+            }
+          }
+          return item;
+        });
+
+        // Migrate item 5 (which was a default portrait session photo, but is now "Their Journey to Forever" video)
+        const journeyToForever = portfolioItems.find(p => p.id === 5);
+        if (journeyToForever) {
+          const item5Index = updated.findIndex(item => item.id === 5);
+          if (item5Index !== -1 && updated[item5Index].type !== 'video') {
+            updated[item5Index] = journeyToForever;
+            changed = true;
+          } else if (item5Index === -1 && !updated.some(item => item.title.includes("Journey to Forever"))) {
+            updated.unshift(journeyToForever);
             changed = true;
           }
         }
+
+        // Ensure all default new YouTube videos are present
+        portfolioItems.filter(p => p.type === 'video').forEach(defaultVid => {
+          if (!updated.some(item => item.id === defaultVid.id)) {
+            updated.unshift(defaultVid);
+            changed = true;
+          }
+        });
+
+        // Filter out any duplicates if they arose
+        const uniqueIds = new Set();
+        const deduplicated = [];
+        updated.forEach(item => {
+          if (!uniqueIds.has(item.id)) {
+            uniqueIds.add(item.id);
+            deduplicated.push(item);
+          } else {
+            changed = true;
+          }
+        });
+        updated = deduplicated;
+
         if (changed) {
           localStorage.setItem('gandu_david_gama_portfolio', JSON.stringify(updated));
           window.dispatchEvent(new Event('portfolioUpdated'));

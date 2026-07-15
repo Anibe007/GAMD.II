@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Mail, CheckSquare, Square, Star, Film, Image } from 'lucide-react';
-import { portfolioItems } from '../data/portfolioData';
+import { portfolioItems, getYouTubeId, formatYouTubeEmbed, getYouTubeThumbnail } from '../data/portfolioData';
 
 export default function AdminDashboard({ isOpen, onClose }) {
   const [activeTab, setActiveTab] = useState('portfolio');
@@ -16,6 +16,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
   const [newType, setNewType] = useState('image');
   const [newSource, setNewSource] = useState('');
   const [newThumbnail, setNewThumbnail] = useState('');
+  const [newAspectRatio, setNewAspectRatio] = useState('16/9');
   const [errorMsg, setErrorMsg] = useState('');
 
   // Load data from localStorage on open
@@ -56,13 +57,34 @@ export default function AdminDashboard({ isOpen, onClose }) {
       return;
     }
 
+    const srcUrl = newSource.trim();
+    let formattedSource = srcUrl;
+    let resolvedThumbnail = newThumbnail.trim();
+
+    if (newType === 'video') {
+      const ytId = getYouTubeId(srcUrl);
+      if (ytId) {
+        formattedSource = `https://www.youtube.com/embed/${ytId}`;
+        if (!resolvedThumbnail) {
+          resolvedThumbnail = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+        }
+      } else if (!resolvedThumbnail) {
+        resolvedThumbnail = '/images/canon-camera.jpg';
+      }
+    } else {
+      if (!resolvedThumbnail) {
+        resolvedThumbnail = srcUrl;
+      }
+    }
+
     const newItem = {
       id: Date.now(),
       title: newTitle.trim(),
       category: newCategory,
       type: newType,
-      source: newSource.trim(),
-      thumbnail: newThumbnail.trim() || (newType === 'image' ? newSource.trim() : '/images/canon-camera.jpg')
+      source: formattedSource,
+      thumbnail: resolvedThumbnail,
+      ...(newType === 'video' && { aspectRatio: newAspectRatio })
     };
 
     const updated = [newItem, ...items];
@@ -73,6 +95,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
     setNewTitle('');
     setNewSource('');
     setNewThumbnail('');
+    setNewAspectRatio('16/9');
     setErrorMsg('');
 
     // Dispatch custom event
@@ -288,7 +311,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
                         </select>
                       </div>
 
-                      <div style={{ flex: 1 }}>
+                       <div style={{ flex: 1 }}>
                         <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-dark-secondary)', marginBottom: '6px', fontWeight: 500 }}>
                           Type
                         </label>
@@ -312,6 +335,32 @@ export default function AdminDashboard({ isOpen, onClose }) {
                         </select>
                       </div>
                     </div>
+
+                    {newType === 'video' && (
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-dark-secondary)', marginBottom: '6px', fontWeight: 500 }}>
+                          Video Aspect Ratio
+                        </label>
+                        <select
+                          value={newAspectRatio}
+                          onChange={(e) => setNewAspectRatio(e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '10px 12px',
+                            backgroundColor: '#07090e',
+                            border: '1px solid var(--border-dark)',
+                            borderRadius: '6px',
+                            color: '#ffffff',
+                            outline: 'none',
+                            fontSize: '0.9rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <option value="16/9">16:9 Widescreen (Horizontal)</option>
+                          <option value="9/16">9:16 Vertical Reel/Short</option>
+                        </select>
+                      </div>
+                    )}
 
                     <div>
                       <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-dark-secondary)', marginBottom: '6px', fontWeight: 500 }}>

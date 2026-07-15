@@ -67,37 +67,52 @@ export default function FeaturedWork() {
                 boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
               }}
             >
-              {item.type === 'video' ? (
-                <video
-                  src={item.source}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
+              <img
+                src={item.thumbnail}
+                alt={item.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'transform 0.4s ease',
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+              />
+              {item.type === 'video' && (
+                <div
                   style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    transition: 'transform 0.4s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(7, 9, 14, 0.25)',
+                    pointerEvents: 'none',
                   }}
-                  onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                />
-              ) : (
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    transition: 'transform 0.4s ease',
-                  }}
-                  onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                />
+                >
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(7, 9, 14, 0.8)',
+                      border: '1px solid var(--gold-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 0 15px var(--gold-glow)',
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--gold-primary)" stroke="var(--gold-primary)">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  </div>
+                </div>
               )}
             </div>
           ))}

@@ -35,52 +35,74 @@
  * =========================================================================
  */
 
+export const getYouTubeId = (url) => {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+};
+
+export const formatYouTubeEmbed = (url) => {
+  const id = getYouTubeId(url);
+  return id ? `https://www.youtube.com/embed/${id}` : url;
+};
+
+export const getYouTubeThumbnail = (url) => {
+  const id = getYouTubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : null;
+};
+
 export const showreelVideo = {
-  title: "GAMAD.II - Creative Videography Showreel",
-  thumbnail: "/images/canon-camera.jpg",
-  source: "/Videos/FUGA CULTURAL.mp4"
+  title: "Red Empowerment | Menstrual Hygiene Awareness Campaign",
+  thumbnail: "https://img.youtube.com/vi/-qT9MaF5BuE/hqdefault.jpg",
+  source: "https://www.youtube.com/embed/-qT9MaF5BuE"
 };
 
 export const portfolioItems = [
   {
     id: 1,
-    title: "FUGA CULTURAL - Cultural Production",
+    title: "Red Empowerment | Menstrual Hygiene Awareness Campaign",
     category: "videography",
-    thumbnail: "/images/logo_gamad.jpg",
+    thumbnail: "https://img.youtube.com/vi/-qT9MaF5BuE/hqdefault.jpg",
     type: "video",
-    source: "/Videos/FUGA CULTURAL.mp4"
+    source: "https://www.youtube.com/embed/-qT9MaF5BuE",
+    aspectRatio: "16/9"
   },
   {
     id: 2,
-    title: "Cinematic Highlight Reel",
+    title: "Gideon’s Proposal | A Love Story in One Moment",
     category: "videography",
-    thumbnail: "/images/canon-camera.jpg",
+    thumbnail: "https://img.youtube.com/vi/4UNVGkAm4fI/hqdefault.jpg",
     type: "video",
-    source: "/Videos/IMG_0536.MP4"
+    source: "https://www.youtube.com/embed/4UNVGkAm4fI",
+    aspectRatio: "16/9"
   },
   {
     id: 3,
-    title: "FUGA CULTURAL - Film Assembly",
-    category: "video-editing",
-    thumbnail: "/images/logo_gamad.jpg",
+    title: "Culture, Love & Tradition | Cinematic Pre-Wedding Story",
+    category: "videography",
+    thumbnail: "https://img.youtube.com/vi/0DfWODdvtCA/hqdefault.jpg",
     type: "video",
-    source: "/Videos/FUGA CULTURAL.mp4"
+    source: "https://www.youtube.com/embed/0DfWODdvtCA",
+    aspectRatio: "9/16"
   },
   {
     id: 4,
-    title: "Color Grading & Sound Design Session",
+    title: "Discover Viki’s New Book | Book Promo",
     category: "video-editing",
-    thumbnail: "/images/canon-camera.jpg",
+    thumbnail: "https://img.youtube.com/vi/1Q7VsH-oe6w/hqdefault.jpg",
     type: "video",
-    source: "/Videos/IMG_0536.MP4"
+    source: "https://www.youtube.com/embed/1Q7VsH-oe6w",
+    aspectRatio: "9/16"
   },
   {
     id: 5,
-    title: "Studio Portrait Session",
-    category: "photography",
-    thumbnail: "/images/Profile_pics.jpeg",
-    type: "image",
-    source: "/images/Profile_pics.jpeg"
+    title: "Their Journey to Forever | Pre-Wedding Story",
+    category: "videography",
+    thumbnail: "https://img.youtube.com/vi/r7gyvCI1luY/hqdefault.jpg",
+    type: "video",
+    source: "https://www.youtube.com/embed/r7gyvCI1luY",
+    aspectRatio: "9/16"
   },
   {
     id: 7,
