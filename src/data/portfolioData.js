@@ -53,9 +53,9 @@ export const getYouTubeThumbnail = (url) => {
 };
 
 export const showreelVideo = {
-  title: "Red Empowerment | Menstrual Hygiene Awareness Campaign",
-  thumbnail: "https://img.youtube.com/vi/-qT9MaF5BuE/hqdefault.jpg",
-  source: "https://www.youtube.com/embed/-qT9MaF5BuE"
+  title: "Culture, Love & Tradition | Cinematic Pre-Wedding Story",
+  thumbnail: "https://img.youtube.com/vi/0DfWODdvtCA/hqdefault.jpg",
+  source: "https://www.youtube.com/embed/0DfWODdvtCA"
 };
 
 export const portfolioItems = [
