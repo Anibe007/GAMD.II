@@ -302,3 +302,51 @@ section {
   }
 }
 
+/* ===== LIGHTBOX VIDEO CENTERING ===== */
+
+/* 16:9 widescreen iframe wrapper — padding-top trick for reliable aspect ratio */
+.lb-video-16-9 {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 9/16 = 56.25% */
+  background: #000;
+  flex-shrink: 0;
+}
+
+/* 9:16 vertical iframe wrapper — height-first approach so it never overflows */
+.lb-video-9-16 {
+  position: relative;
+  /* Take up to 68vh height, then calculate width from that height */
+  height: min(68vh, 500px);
+  width: calc(min(68vh, 500px) * 9 / 16);
+  margin: 0 auto;
+  background: #000;
+  flex-shrink: 0;
+}
+
+/* iframe fills its wrapper in both cases */
+.lb-video-16-9 iframe,
+.lb-video-9-16 iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Mobile: tighter height for vertical videos on short screens */
+@media (max-height: 700px) {
+  .lb-video-9-16 {
+    height: min(60vh, 400px);
+    width: calc(min(60vh, 400px) * 9 / 16);
+  }
+}
+
+@media (max-width: 480px) {
+  /* On very small widths, 16:9 height may be tiny but that's correct for the ratio */
+  .lb-video-16-9 {
+    padding-top: 56.25%;
+  }
+}
+
