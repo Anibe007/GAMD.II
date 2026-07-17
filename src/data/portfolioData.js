@@ -37,7 +37,7 @@
 
 export const getYouTubeId = (url) => {
   if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
 };
@@ -55,7 +55,8 @@ export const getYouTubeThumbnail = (url) => {
 export const showreelVideo = {
   title: "Culture, Love & Tradition | Cinematic Pre-Wedding Story",
   thumbnail: "https://img.youtube.com/vi/0DfWODdvtCA/hqdefault.jpg",
-  source: "https://www.youtube.com/embed/0DfWODdvtCA"
+  source: "https://www.youtube.com/embed/0DfWODdvtCA",
+  aspectRatio: "9/16"
 };
 
 export const portfolioItems = [

@@ -1,33 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, MessageSquare } from 'lucide-react';
 import { initialReviews } from '../data/portfolioData';
 
 export default function Reviews() {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState(() => {
+    const savedReviews = localStorage.getItem('gandu_david_gama_reviews');
+    if (savedReviews) {
+      try {
+        return JSON.parse(savedReviews);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialReviews;
+  });
   const [name, setName] = useState('');
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [text, setText] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  const loadReviews = () => {
-    const savedReviews = localStorage.getItem('gandu_david_gama_reviews');
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
-    } else {
-      setReviews(initialReviews);
-      localStorage.setItem('gandu_david_gama_reviews', JSON.stringify(initialReviews));
-    }
-  };
-
   // Load reviews from localStorage or fall back to initialReviews
   useEffect(() => {
-    loadReviews();
-    window.addEventListener('reviewsUpdated', loadReviews);
-    window.addEventListener('storage', loadReviews);
+    const handleUpdated = () => {
+      const savedReviews = localStorage.getItem('gandu_david_gama_reviews');
+      if (savedReviews) {
+        try {
+          setReviews(JSON.parse(savedReviews));
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+    window.addEventListener('reviewsUpdated', handleUpdated);
+    window.addEventListener('storage', handleUpdated);
     return () => {
-      window.removeEventListener('reviewsUpdated', loadReviews);
-      window.removeEventListener('storage', loadReviews);
+      window.removeEventListener('reviewsUpdated', handleUpdated);
+      window.removeEventListener('storage', handleUpdated);
     };
   }, []);
 

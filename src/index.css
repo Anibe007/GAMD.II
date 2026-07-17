@@ -242,23 +242,45 @@ section {
   box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
-/* Portfolio Hover Effects */
+/* =====================================================
+   PORTFOLIO CARDS — Bulletproof Responsive Layout
+   Uses the padding-bottom % trick so height is always
+   derived from width, working on every browser/device.
+   ===================================================== */
 .portfolio-card {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
   cursor: pointer;
-  border: 1px solid rgba(194, 159, 93, 0.1);
+  border: 1px solid rgba(194, 159, 93, 0.15);
   transition: var(--transition-smooth);
+  background-color: #0f1420; /* Dark fill so card is visible before image loads */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  /* No aspect-ratio here — height comes from the inner sizer */
 }
 
+/* Invisible sizer div — stays in normal flow, pushes the card open */
+.portfolio-card .card-sizer {
+  display: block;
+  width: 100%;
+}
+.portfolio-card.ratio-1-1   .card-sizer { padding-bottom: 100%;   } /* 1:1  square  */
+.portfolio-card.ratio-16-9  .card-sizer { padding-bottom: 56.25%; } /* 16:9 wide    */
+.portfolio-card.ratio-9-16  .card-sizer { padding-bottom: 177.78%;} /* 9:16 vertical*/
+
+/* Image absolutely fills the whole card */
 .portfolio-card .item-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Overlay sits on top of the image */
 .portfolio-card .item-overlay {
   position: absolute;
   top: 0;
@@ -316,9 +338,9 @@ section {
 /* 9:16 vertical iframe wrapper — height-first approach so it never overflows */
 .lb-video-9-16 {
   position: relative;
-  /* Take up to 68vh height, then calculate width from that height */
-  height: min(68vh, 500px);
-  width: calc(min(68vh, 500px) * 9 / 16);
+  /* Take up to 75vh height (safely fits vertical screen + text banners) and calculate width from it */
+  height: min(75vh, 680px);
+  width: calc(min(75vh, 680px) * 9 / 16);
   margin: 0 auto;
   background: #000;
   flex-shrink: 0;
@@ -338,8 +360,8 @@ section {
 /* Mobile: tighter height for vertical videos on short screens */
 @media (max-height: 700px) {
   .lb-video-9-16 {
-    height: min(60vh, 400px);
-    width: calc(min(60vh, 400px) * 9 / 16);
+    height: min(72vh, 550px);
+    width: calc(min(72vh, 550px) * 9 / 16);
   }
 }
 
@@ -350,3 +372,11 @@ section {
   }
 }
 
+/* ===== RESPONSIVE HERO BACKGROUND FIX ===== */
+/* background-attachment: fixed is broken on iOS Safari and many mobile browsers.
+   Reset it to scroll so the hero background always shows on small screens. */
+@media (max-width: 768px) {
+  #home {
+    background-attachment: scroll !important;
+  }
+}

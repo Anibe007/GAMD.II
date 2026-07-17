@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Video, Film, Camera } from 'lucide-react';
 
 export default function Services() {

@@ -75,7 +75,7 @@ export default function Footer({ onOpenAdmin }) {
           >
             CINEMATIC VIDEOGRAPHY & PHOTOGRAPHY PORTFOLIO
           </p>
-          <span style={{ color: 'rgba(255, 255, 255, 0.1)', fontSize: '0.75rem' }}>|</span>
+          {/* <span style={{ color: 'rgba(255, 255, 255, 0.1)', fontSize: '0.75rem' }}>|</span>
           <button
             onClick={onOpenAdmin}
             style={{
@@ -102,7 +102,7 @@ export default function Footer({ onOpenAdmin }) {
             }}
           >
             Manage Site
-          </button>
+          </button> */}
         </div>
       </div>
     </footer>

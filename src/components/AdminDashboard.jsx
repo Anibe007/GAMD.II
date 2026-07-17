@@ -364,7 +364,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
 
                     <div>
                       <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-dark-secondary)', marginBottom: '6px', fontWeight: 500 }}>
-                        Source URL (e.g. /images/DSC00009.jpg or Video URL)
+                        Source URL (e.g. images/DSC00009.jpg or Video URL)
                       </label>
                       <input
                         type="text"
