@@ -126,6 +126,14 @@ export default function App() {
           }
         });
 
+        // Ensure all canonical photo items are present
+        portfolioItems.filter(p => p.type === 'image' || p.type === 'photography').forEach(defaultPhoto => {
+          if (!updated.some(item => item.id === defaultPhoto.id)) {
+            updated.push(defaultPhoto);
+            changed = true;
+          }
+        });
+
         // Filter out any duplicates if they arose
         const uniqueIds = new Set();
         const deduplicated = [];

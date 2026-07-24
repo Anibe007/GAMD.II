@@ -163,22 +163,6 @@ export const portfolioItems = [
   },
   {
     id: 14,
-    title: "Vibrant Horizon Landscape",
-    category: "photography",
-    thumbnail: "/images/DSC00050.jpg",
-    type: "image",
-    source: "/images/DSC00050.jpg"
-  },
-  {
-    id: 15,
-    title: "Dramatic Stormy Skies",
-    category: "photography",
-    thumbnail: "/images/DSC00053.jpg",
-    type: "image",
-    source: "/images/DSC00053.jpg"
-  },
-  {
-    id: 16,
     title: "High-Contrast Studio Portrait",
     category: "photography",
     thumbnail: "/images/DSC00054.jpg",
@@ -186,7 +170,7 @@ export const portfolioItems = [
     source: "/images/DSC00054.jpg"
   },
   {
-    id: 17,
+    id: 15,
     title: "Ethereal Morning Haze",
     category: "photography",
     thumbnail: "/images/DSC00091.jpg",
@@ -194,7 +178,7 @@ export const portfolioItems = [
     source: "/images/DSC00091.jpg"
   },
   {
-    id: 18,
+    id: 16,
     title: "Fine Art Botanical Close-Up",
     category: "photography",
     thumbnail: "/images/DSC00093.jpg",
@@ -202,12 +186,116 @@ export const portfolioItems = [
     source: "/images/DSC00093.jpg"
   },
   {
-    id: 19,
-    title: "Street Candid Narrative",
+    id: 17,
+    title: "Cinematic Event Storytelling",
     category: "photography",
-    thumbnail: "/images/DSC09938.jpg",
+    thumbnail: "/images/DSC00481.jpg",
     type: "image",
-    source: "/images/DSC09938.jpg"
+    source: "/images/DSC00481.jpg"
+  },
+  {
+    id: 18,
+    title: "Cultural Heritage & Traditions",
+    category: "photography",
+    thumbnail: "/images/DSC09213.jpg",
+    type: "image",
+    source: "/images/DSC09213.jpg"
+  },
+  {
+    id: 19,
+    title: "Vibrant Celebration Highlights",
+    category: "photography",
+    thumbnail: "/images/DSC09214.jpg",
+    type: "image",
+    source: "/images/DSC09214.jpg"
+  },
+  {
+    id: 20,
+    title: "Elegance & Portraiture",
+    category: "photography",
+    thumbnail: "/images/DSC09216.jpg",
+    type: "image",
+    source: "/images/DSC09216.jpg"
+  },
+  {
+    id: 21,
+    title: "Pre-Wedding Moments",
+    category: "photography",
+    thumbnail: "/images/DSC09218.jpg",
+    type: "image",
+    source: "/images/DSC09218.jpg"
+  },
+  {
+    id: 22,
+    title: "Atmospheric Twilight Frame",
+    category: "photography",
+    thumbnail: "/images/DSC09220.jpg",
+    type: "image",
+    source: "/images/DSC09220.jpg"
+  },
+  {
+    id: 23,
+    title: "Candid Expressions & Joy",
+    category: "photography",
+    thumbnail: "/images/DSC09227.jpg",
+    type: "image",
+    source: "/images/DSC09227.jpg"
+  },
+  {
+    id: 24,
+    title: "Editorial Composition Study",
+    category: "photography",
+    thumbnail: "/images/DSC09234.jpg",
+    type: "image",
+    source: "/images/DSC09234.jpg"
+  },
+  {
+    id: 25,
+    title: "Golden Light & Warmth",
+    category: "photography",
+    thumbnail: "/images/DSC09282.jpg",
+    type: "image",
+    source: "/images/DSC09282.jpg"
+  },
+  {
+    id: 26,
+    title: "Timeless Portrait Series",
+    category: "photography",
+    thumbnail: "/images/DSC09307.jpg",
+    type: "image",
+    source: "/images/DSC09307.jpg"
+  },
+  {
+    id: 27,
+    title: "Creative Natural Perspective",
+    category: "photography",
+    thumbnail: "/images/DSC09312.jpg",
+    type: "image",
+    source: "/images/DSC09312.jpg"
+  },
+  {
+    id: 28,
+    title: "Dramatic Lighting & Mood",
+    category: "photography",
+    thumbnail: "/images/DSC09326.jpg",
+    type: "image",
+    source: "/images/DSC09326.jpg"
+  },
+  {
+    id: 29,
+    title: "Expressive Moment Capture",
+    category: "photography",
+    thumbnail: "/images/DSC09365.jpg",
+    type: "image",
+    source: "/images/DSC09365.jpg"
+  },
+  {
+    id: 30,
+    title: "High-Fashion Visual Narrative",
+    category: "photography",
+    thumbnail: "/images/DSC09400.jpg",
+    type: "image",
+    source: "/images/DSC09400.jpg"
   }
 ];
 
