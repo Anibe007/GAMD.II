@@ -54,14 +54,24 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        backgroundImage: 'linear-gradient(to bottom, rgba(7, 9, 14, 0.4), rgba(7, 9, 14, 0.95)), url("/images/canon-camera.jpg")',
+        backgroundImage: 'url(/images/canon-camera.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
         textAlign: 'center',
         padding: '120px 0 80px 0',
       }}
     >
+      {/* Dark cinematic overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(160deg, rgba(7,9,14,0.82) 0%, rgba(13,18,32,0.78) 40%, rgba(17,24,39,0.75) 70%, rgba(7,9,14,0.88) 100%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
       <div className="container" style={{ zIndex: 1 }}>
         <div className="fade-in-up" style={{ maxWidth: '800px', margin: '0 auto' }}>
           {/* Logo overlay on Hero */}

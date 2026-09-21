@@ -2,17 +2,18 @@ import { useState, useEffect } from 'react';
 import { Play, ExternalLink } from 'lucide-react';
 import { portfolioItems } from '../data/portfolioData';
 
-// Always use canonical portfolioData for local photos to avoid stale localStorage paths.
-// Only videos (which may have custom YouTube URLs) are read from localStorage.
+// Always use canonical portfolioData as the base.
+// Only append extra admin-added videos from localStorage that aren't already in canonical data.
 const mergePortfolioItems = (saved) => {
-  const canonicalPhotos = portfolioItems.filter(
-    (p) => p.type === 'image' || p.type === 'photography'
-  );
   if (!saved) return portfolioItems;
   try {
     const parsed = JSON.parse(saved);
-    const customVideos = parsed.filter((item) => item.type === 'video');
-    return [...customVideos, ...canonicalPhotos];
+    const canonicalIds = new Set(portfolioItems.map((p) => p.id));
+    // Extra videos added via admin dashboard (not in canonical data)
+    const extraVideos = parsed.filter(
+      (item) => item.type === 'video' && !canonicalIds.has(item.id)
+    );
+    return [...portfolioItems, ...extraVideos];
   } catch (e) {
     return portfolioItems;
   }
@@ -23,6 +24,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
     mergePortfolioItems(localStorage.getItem('gandu_david_gama_portfolio'))
   );
   const [activeVideoFilter, setActiveVideoFilter] = useState('all');
+  const [activePhotoFilter, setActivePhotoFilter] = useState('all');
 
   useEffect(() => {
     const handleUpdated = () => {
@@ -144,11 +146,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                     onClick={() => onOpenLightbox(item)}
                   >
                     <div className="card-sizer" />
-                    <img
-                      className="item-thumb"
-                      src={item.thumbnail}
-                      alt={item.title}
-                    />
+                    <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
 
                     {/* Hover Overlay */}
                     <div className="item-overlay">
@@ -234,11 +232,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                     onClick={() => onOpenLightbox(item)}
                   >
                     <div className="card-sizer" />
-                    <img
-                      className="item-thumb"
-                      src={item.thumbnail}
-                      alt={item.title}
-                    />
+                    <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
 
                     {/* Hover Overlay */}
                     <div className="item-overlay">
@@ -298,8 +292,58 @@ export default function PortfolioGrid({ onOpenLightbox }) {
           <div className="section-title-wrapper">
             <h2 className="section-title">Photo Gallery</h2>
             <p className="section-subtitle">
-              Elegant portraitures, golden hour editorial studies, and creative wilderness captures.
+              Concert energy, outdoor portraits, and vibrant food photography — all in one place.
             </p>
+          </div>
+
+          {/* Photo Category Filter */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '12px',
+              marginBottom: '45px',
+              flexWrap: 'wrap',
+            }}
+          >
+            {[
+              { name: 'All Photos', id: 'all' },
+              { name: 'Concert', id: 'concert-photography' },
+              { name: 'Food', id: 'food-photography' },
+              { name: 'Outdoor Portrait', id: 'outdoor-portrait' },
+            ].map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setActivePhotoFilter(filter.id)}
+                style={{
+                  background: activePhotoFilter === filter.id ? 'var(--gold-gradient)' : 'rgba(15, 20, 32, 0.4)',
+                  color: activePhotoFilter === filter.id ? '#07090e' : 'var(--text-dark-secondary)',
+                  border: activePhotoFilter === filter.id ? '1px solid transparent' : '1px solid var(--border-dark)',
+                  padding: '10px 24px',
+                  borderRadius: '30px',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  transition: 'var(--transition-smooth)',
+                }}
+                onMouseEnter={(e) => {
+                  if (activePhotoFilter !== filter.id) {
+                    e.target.style.borderColor = 'var(--gold-primary)';
+                    e.target.style.color = '#ffffff';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (activePhotoFilter !== filter.id) {
+                    e.target.style.borderColor = 'var(--border-dark)';
+                    e.target.style.color = 'var(--text-dark-secondary)';
+                  }
+                }}
+              >
+                {filter.name}
+              </button>
+            ))}
           </div>
 
           <div
@@ -309,17 +353,22 @@ export default function PortfolioGrid({ onOpenLightbox }) {
               gap: '24px',
             }}
           >
-            {allPhotos.map((item) => (
+            {allPhotos
+              .filter(item => activePhotoFilter === 'all' || item.category === activePhotoFilter)
+              .map((item) => (
               <div
                 key={item.id}
                 className="portfolio-card ratio-1-1"
                 onClick={() => onOpenLightbox(item)}
               >
                 <div className="card-sizer" />
-                <img
+                <div
                   className="item-thumb"
-                  src={item.thumbnail}
-                  alt={item.title}
+                  style={{
+                    backgroundImage: `url(${item.thumbnail})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
                 />
 
                 {/* Hover Overlay */}
@@ -362,7 +411,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                       fontWeight: 500,
                     }}
                   >
-                    {item.category.replace('-', ' ')}
+                    {item.category.replace(/-/g, ' ')}
                   </span>
                 </div>
               </div>

@@ -440,11 +440,12 @@ export default function AdminDashboard({ isOpen, onClose }) {
                             <Film size={16} style={{ color: 'var(--gold-primary)' }} />
                           </div>
                         ) : (
-                          <img
-                            src={item.thumbnail}
-                            alt=""
-                            style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.1)' }}
-                          />
+                          <div style={{ width: '60px', height: '40px', background: 'linear-gradient(135deg, #0d1220, #111827)', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(194,159,93,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                              <circle cx="12" cy="13" r="4"/>
+                            </svg>
+                          </div>
                         )}
 
                         <div style={{ overflow: 'hidden' }}>

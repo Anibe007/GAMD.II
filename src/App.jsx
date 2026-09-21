@@ -94,7 +94,7 @@ export default function App() {
 
           if (
             (item.type === 'video' && (item.source.toLowerCase().endsWith('.mp4') || item.source.includes('/Videos/'))) ||
-            [1, 2, 3, 4].includes(item.id)
+            [2, 3, 4].includes(item.id)
           ) {
             const replacement = portfolioItems.find(p => p.id === item.id);
             if (replacement) {
@@ -104,6 +104,12 @@ export default function App() {
           }
           return item;
         });
+
+        // Remove any items that have been deliberately deleted from portfolioItems
+        const REMOVED_IDS = new Set([1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]); // deleted videos & photos
+        const beforeFilter = updated.length;
+        updated = updated.filter(item => !REMOVED_IDS.has(item.id));
+        if (updated.length !== beforeFilter) changed = true;
 
         // Migrate item 5 (which was a default portrait session photo, but is now "Their Journey to Forever" video)
         const journeyToForever = portfolioItems.find(p => p.id === 5);
@@ -369,19 +375,24 @@ export default function App() {
                     />
                   )
                 ) : (
-                  <img
-                    src={selectedLightboxItem.source}
-                    alt={selectedLightboxItem.title}
+                  <div
                     style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'contain',
-                      display: 'block',
+                      background: 'linear-gradient(160deg, #0d1220 0%, #111827 50%, #07090e 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
-                  />
+                  >
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(194,159,93,0.3)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                      <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                  </div>
                 )}
               </div>
             )}

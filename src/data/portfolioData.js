@@ -37,7 +37,10 @@
 
 export const getYouTubeId = (url) => {
   if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  // Handle YouTube Shorts URLs (/shorts/VIDEO_ID)
+  const shortsMatch = url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+  if (shortsMatch) return shortsMatch[1];
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/ ;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
 };
@@ -60,15 +63,6 @@ export const showreelVideo = {
 };
 
 export const portfolioItems = [
-  {
-    id: 1,
-    title: "Red Empowerment | Menstrual Hygiene Awareness Campaign",
-    category: "videography",
-    thumbnail: "https://img.youtube.com/vi/-qT9MaF5BuE/hqdefault.jpg",
-    type: "video",
-    source: "https://www.youtube.com/embed/-qT9MaF5BuE",
-    aspectRatio: "16/9"
-  },
   {
     id: 2,
     title: "Gideon’s Proposal | A Love Story in One Moment",
@@ -106,198 +100,134 @@ export const portfolioItems = [
     aspectRatio: "9/16"
   },
   {
-    id: 7,
-    title: "Serene Wilderness Study",
-    category: "photography",
-    thumbnail: "/images/DSC00009.jpg",
-    type: "image",
-    source: "/images/DSC00009.jpg"
+    id: 6,
+    title: "Cinematic Short | Visual Story",
+    category: "videography",
+    thumbnail: "https://img.youtube.com/vi/lL13A1lvQa8/hqdefault.jpg",
+    type: "video",
+    source: "https://www.youtube.com/embed/lL13A1lvQa8",
+    aspectRatio: "9/16"
   },
   {
-    id: 8,
-    title: "Golden Hour Editorial",
-    category: "photography",
-    thumbnail: "/images/DSC00023.jpg",
+    id: 31,
+    title: "Cinematic Highlights | GAMAD.II Reel",
+    category: "videography",
+    thumbnail: "https://img.youtube.com/vi/EnM_qnRM1Xk/hqdefault.jpg",
+    type: "video",
+    source: "https://www.youtube.com/embed/EnM_qnRM1Xk",
+    aspectRatio: "16/9"
+  },
+  // Concert Photography
+  {
+    id: 50,
+    title: "On Stage | Concert Photography",
+    category: "concert-photography",
+    thumbnail: "/images/Concert img/DSC09351 (1).jpg",
     type: "image",
-    source: "/images/DSC00023.jpg"
+    source: "/images/Concert img/DSC09351 (1).jpg",
   },
   {
-    id: 9,
-    title: "Urban Architecture Silhouette",
-    category: "photography",
-    thumbnail: "/images/DSC00031.jpg",
+    id: 51,
+    title: "Green Haze | Concert Photography",
+    category: "concert-photography",
+    thumbnail: "/images/Concert img/DSC09356 (1).jpg",
     type: "image",
-    source: "/images/DSC00031.jpg"
+    source: "/images/Concert img/DSC09356 (1).jpg",
   },
   {
-    id: 10,
-    title: "Cinematic Shadow Play",
-    category: "photography",
-    thumbnail: "/images/DSC00035.jpg",
+    id: 52,
+    title: "Spotlight | Concert Photography",
+    category: "concert-photography",
+    thumbnail: "/images/Concert img/DSC09359 (1).jpg",
     type: "image",
-    source: "/images/DSC00035.jpg"
+    source: "/images/Concert img/DSC09359 (1).jpg",
   },
   {
-    id: 11,
-    title: "Reflections of Light",
-    category: "photography",
-    thumbnail: "/images/DSC00036.jpg",
+    id: 53,
+    title: "Blue Stage | Concert Photography",
+    category: "concert-photography",
+    thumbnail: "/images/Concert img/DSC09365 (1).jpg",
     type: "image",
-    source: "/images/DSC00036.jpg"
+    source: "/images/Concert img/DSC09365 (1).jpg",
+  },
+
+  // Food Photography
+  {
+    id: 60,
+    title: "Beef Stir Fried | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Beef stir fried.jpeg",
+    type: "image",
+    source: "/images/Food img/Beef stir fried.jpeg",
   },
   {
-    id: 12,
-    title: "Monochrome Editorial Portrait",
-    category: "photography",
-    thumbnail: "/images/DSC00038.jpg",
+    id: 61,
+    title: "Burger 01 | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Burger 01.jpeg",
     type: "image",
-    source: "/images/DSC00038.jpg"
+    source: "/images/Food img/Burger 01.jpeg",
   },
   {
-    id: 13,
-    title: "Geometric Patterns in Design",
-    category: "photography",
-    thumbnail: "/images/DSC00041.jpg",
+    id: 62,
+    title: "Burger 02 | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Burger 02.jpeg",
     type: "image",
-    source: "/images/DSC00041.jpg"
+    source: "/images/Food img/Burger 02.jpeg",
   },
   {
-    id: 14,
-    title: "High-Contrast Studio Portrait",
-    category: "photography",
-    thumbnail: "/images/DSC00054.jpg",
+    id: 63,
+    title: "Burger 03 | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Burger 03.jpeg",
     type: "image",
-    source: "/images/DSC00054.jpg"
+    source: "/images/Food img/Burger 03.jpeg",
   },
   {
-    id: 15,
-    title: "Ethereal Morning Haze",
-    category: "photography",
-    thumbnail: "/images/DSC00091.jpg",
+    id: 64,
+    title: "Cocktail | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Cocktail.jpeg",
     type: "image",
-    source: "/images/DSC00091.jpg"
+    source: "/images/Food img/Cocktail.jpeg",
   },
   {
-    id: 16,
-    title: "Fine Art Botanical Close-Up",
-    category: "photography",
-    thumbnail: "/images/DSC00093.jpg",
+    id: 65,
+    title: "Creamy Penne Pasta | Food Photography",
+    category: "food-photography",
+    thumbnail: "/images/Food img/Creamy Penne Pasta.jpeg",
     type: "image",
-    source: "/images/DSC00093.jpg"
+    source: "/images/Food img/Creamy Penne Pasta.jpeg",
+  },
+
+  // Outdoor Portraits
+  {
+    id: 70,
+    title: "Outdoor Portrait I",
+    category: "outdoor-portrait",
+    thumbnail: "/images/Outdoor Portrait/Outdoor Portraits 1.JPG",
+    type: "image",
+    source: "/images/Outdoor Portrait/Outdoor Portraits 1.JPG",
   },
   {
-    id: 17,
-    title: "Cinematic Event Storytelling",
-    category: "photography",
-    thumbnail: "/images/DSC00481.jpg",
+    id: 71,
+    title: "Outdoor Portrait II",
+    category: "outdoor-portrait",
+    thumbnail: "/images/Outdoor Portrait/Outdoor Portrait 2.JPG",
     type: "image",
-    source: "/images/DSC00481.jpg"
+    source: "/images/Outdoor Portrait/Outdoor Portrait 2.JPG",
   },
   {
-    id: 18,
-    title: "Cultural Heritage & Traditions",
-    category: "photography",
-    thumbnail: "/images/DSC09213.jpg",
+    id: 72,
+    title: "Outdoor Portrait III",
+    category: "outdoor-portrait",
+    thumbnail: "/images/Outdoor Portrait/Outdoor Portrait 3.JPG",
     type: "image",
-    source: "/images/DSC09213.jpg"
+    source: "/images/Outdoor Portrait/Outdoor Portrait 3.JPG",
   },
-  {
-    id: 19,
-    title: "Vibrant Celebration Highlights",
-    category: "photography",
-    thumbnail: "/images/DSC09214.jpg",
-    type: "image",
-    source: "/images/DSC09214.jpg"
-  },
-  {
-    id: 20,
-    title: "Elegance & Portraiture",
-    category: "photography",
-    thumbnail: "/images/DSC09216.jpg",
-    type: "image",
-    source: "/images/DSC09216.jpg"
-  },
-  {
-    id: 21,
-    title: "Pre-Wedding Moments",
-    category: "photography",
-    thumbnail: "/images/DSC09218.jpg",
-    type: "image",
-    source: "/images/DSC09218.jpg"
-  },
-  {
-    id: 22,
-    title: "Atmospheric Twilight Frame",
-    category: "photography",
-    thumbnail: "/images/DSC09220.jpg",
-    type: "image",
-    source: "/images/DSC09220.jpg"
-  },
-  {
-    id: 23,
-    title: "Candid Expressions & Joy",
-    category: "photography",
-    thumbnail: "/images/DSC09227.jpg",
-    type: "image",
-    source: "/images/DSC09227.jpg"
-  },
-  {
-    id: 24,
-    title: "Editorial Composition Study",
-    category: "photography",
-    thumbnail: "/images/DSC09234.jpg",
-    type: "image",
-    source: "/images/DSC09234.jpg"
-  },
-  {
-    id: 25,
-    title: "Golden Light & Warmth",
-    category: "photography",
-    thumbnail: "/images/DSC09282.jpg",
-    type: "image",
-    source: "/images/DSC09282.jpg"
-  },
-  {
-    id: 26,
-    title: "Timeless Portrait Series",
-    category: "photography",
-    thumbnail: "/images/DSC09307.jpg",
-    type: "image",
-    source: "/images/DSC09307.jpg"
-  },
-  {
-    id: 27,
-    title: "Creative Natural Perspective",
-    category: "photography",
-    thumbnail: "/images/DSC09312.jpg",
-    type: "image",
-    source: "/images/DSC09312.jpg"
-  },
-  {
-    id: 28,
-    title: "Dramatic Lighting & Mood",
-    category: "photography",
-    thumbnail: "/images/DSC09326.jpg",
-    type: "image",
-    source: "/images/DSC09326.jpg"
-  },
-  {
-    id: 29,
-    title: "Expressive Moment Capture",
-    category: "photography",
-    thumbnail: "/images/DSC09365.jpg",
-    type: "image",
-    source: "/images/DSC09365.jpg"
-  },
-  {
-    id: 30,
-    title: "High-Fashion Visual Narrative",
-    category: "photography",
-    thumbnail: "/images/DSC09400.jpg",
-    type: "image",
-    source: "/images/DSC09400.jpg"
-  }
 ];
+
 
 export const initialReviews = [
   {

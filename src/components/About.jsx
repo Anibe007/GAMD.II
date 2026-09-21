@@ -71,9 +71,10 @@ export default function About() {
                 alt="Gandu David Gama"
                 style={{
                   width: '100%',
-                  height: 'auto',
+                  aspectRatio: '3/4',
                   borderRadius: '16px',
                   objectFit: 'cover',
+                  objectPosition: 'center top',
                   display: 'block',
                 }}
               />
@@ -227,51 +228,6 @@ export default function About() {
               </div>
             </div>
 
-            {/* Stakeholders Collaboration Block */}
-            <div
-              style={{
-                marginTop: '30px',
-                backgroundColor: 'rgba(28, 25, 23, 0.03)',
-                borderRadius: '16px',
-                padding: '24px 30px',
-                border: '1px dashed var(--border-cream)',
-              }}
-            >
-              <h5
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  marginBottom: '16px',
-                  color: 'var(--text-cream-primary)',
-                }}
-              >
-                Project Collaboration
-              </h5>
-              
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '20px',
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--gold-primary)', fontWeight: 600, letterSpacing: '0.5px' }}>Videographer</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-cream-primary)' }}>Gandu David Gama</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--gold-primary)', fontWeight: 600, letterSpacing: '0.5px' }}>Web Developer</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-cream-primary)' }}>Anibe David</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--gold-primary)', fontWeight: 600, letterSpacing: '0.5px' }}>Coordinator</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-cream-primary)' }}>Legbo Victoria Adi</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

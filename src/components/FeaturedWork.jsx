@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 import { portfolioItems } from '../data/portfolioData';
 
-// Always use canonical portfolioData for local photos to avoid stale localStorage paths.
+// Always use canonical portfolioData as the base.
+// Only append extra admin-added videos from localStorage that aren't already in canonical data.
 const mergeFeaturedItems = (saved) => {
-  const canonicalPhotos = portfolioItems.filter(
-    (p) => p.type === 'image' || p.type === 'photography'
-  );
   if (!saved) return portfolioItems;
   try {
     const parsed = JSON.parse(saved);
-    const customVideos = parsed.filter((item) => item.type === 'video');
-    return [...customVideos, ...canonicalPhotos];
+    const canonicalIds = new Set(portfolioItems.map((p) => p.id));
+    const extraVideos = parsed.filter(
+      (item) => item.type === 'video' && !canonicalIds.has(item.id)
+    );
+    return [...portfolioItems, ...extraVideos];
   } catch (e) {
     return portfolioItems;
   }
@@ -72,11 +73,7 @@ export default function FeaturedWork({ onOpenLightbox }) {
               onClick={() => onOpenLightbox(item)}
             >
               <div className="card-sizer" />
-              <img
-                className="item-thumb"
-                src={item.thumbnail}
-                alt={item.title}
-              />
+              <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
 
               {/* Hover Overlay / Indicator */}
               <div className="item-overlay">
