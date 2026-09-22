@@ -146,7 +146,16 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                     onClick={() => onOpenLightbox(item)}
                   >
                     <div className="card-sizer" />
-                    <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+                    {item.thumbnail ? (
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="item-thumb"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+                    )}
 
                     {/* Hover Overlay */}
                     <div className="item-overlay">
@@ -232,7 +241,16 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                     onClick={() => onOpenLightbox(item)}
                   >
                     <div className="card-sizer" />
-                    <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+                    {item.thumbnail ? (
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="item-thumb"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+                    )}
 
                     {/* Hover Overlay */}
                     <div className="item-overlay">
@@ -292,7 +310,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
           <div className="section-title-wrapper">
             <h2 className="section-title">Photo Gallery</h2>
             <p className="section-subtitle">
-              Concert energy, outdoor portraits, and vibrant food photography — all in one place.
+              Studio & editorial portraits, concert energy, outdoor moments, and vibrant food photography.
             </p>
           </div>
 
@@ -308,6 +326,7 @@ export default function PortfolioGrid({ onOpenLightbox }) {
           >
             {[
               { name: 'All Photos', id: 'all' },
+              { name: 'Portraits', id: 'portrait' },
               { name: 'Concert', id: 'concert-photography' },
               { name: 'Food', id: 'food-photography' },
               { name: 'Outdoor Portrait', id: 'outdoor-portrait' },
@@ -362,14 +381,16 @@ export default function PortfolioGrid({ onOpenLightbox }) {
                 onClick={() => onOpenLightbox(item)}
               >
                 <div className="card-sizer" />
-                <div
-                  className="item-thumb"
-                  style={{
-                    backgroundImage: `url(${item.thumbnail})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                />
+                {item.thumbnail ? (
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="item-thumb"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+                )}
 
                 {/* Hover Overlay */}
                 <div className="item-overlay">

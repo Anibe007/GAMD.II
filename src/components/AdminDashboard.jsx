@@ -406,6 +406,33 @@ export default function AdminDashboard({ isOpen, onClose }) {
                       />
                     </div>
 
+                    {/* Live Preview of Input Item */}
+                    {(newSource.trim() || newThumbnail.trim() || newTitle.trim()) && (
+                      <div style={{ padding: '10px', backgroundColor: 'rgba(7, 9, 14, 0.8)', borderRadius: '8px', border: '1px solid rgba(194, 159, 93, 0.2)' }}>
+                        <span style={{ fontSize: '0.7rem', color: 'var(--gold-primary)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: '8px' }}>
+                          Preview
+                        </span>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                          {(newThumbnail.trim() || (newType === 'video' ? getYouTubeThumbnail(newSource.trim()) : newSource.trim())) && (
+                            <img
+                              src={newThumbnail.trim() || (newType === 'video' ? getYouTubeThumbnail(newSource.trim()) : newSource.trim())}
+                              alt="Preview"
+                              style={{ width: '80px', height: '48px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-dark)', backgroundColor: '#000000' }}
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                            />
+                          )}
+                          <div style={{ overflow: 'hidden' }}>
+                            <div style={{ color: '#fff', fontSize: '0.85rem', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                              {newTitle || 'Item Title'}
+                            </div>
+                            <div style={{ color: 'var(--text-dark-secondary)', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                              {newCategory} • {newType}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <button type="submit" className="btn-gold" style={{ width: '100%', padding: '12px', marginTop: '8px' }}>
                       Add to Gallery
                     </button>
@@ -435,18 +462,20 @@ export default function AdminDashboard({ isOpen, onClose }) {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '15px', overflow: 'hidden' }}>
-                        {item.type === 'video' ? (
-                          <div style={{ width: '60px', height: '40px', backgroundColor: '#000000', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', border: '1px solid var(--gold-primary)' }}>
+                        <div style={{ width: '60px', height: '40px', backgroundColor: '#000000', borderRadius: '4px', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(194, 159, 93, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {item.thumbnail ? (
+                            <img
+                              src={item.thumbnail}
+                              alt=""
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                            />
+                          ) : item.type === 'video' ? (
                             <Film size={16} style={{ color: 'var(--gold-primary)' }} />
-                          </div>
-                        ) : (
-                          <div style={{ width: '60px', height: '40px', background: 'linear-gradient(135deg, #0d1220, #111827)', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(194,159,93,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                              <circle cx="12" cy="13" r="4"/>
-                            </svg>
-                          </div>
-                        )}
+                          ) : (
+                            <Image size={16} style={{ color: 'var(--gold-primary)' }} />
+                          )}
+                        </div>
 
                         <div style={{ overflow: 'hidden' }}>
                           <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#ffffff', margin: 0, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>

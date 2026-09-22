@@ -11,7 +11,7 @@ import Reviews from './components/Reviews';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminDashboard from './components/AdminDashboard';
-import { portfolioItems } from './data/portfolioData';
+import { portfolioItems, getYouTubeId } from './data/portfolioData';
 
 export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -31,9 +31,9 @@ export default function App() {
 
   const getEmbedUrl = (url) => {
     if (!url) return '';
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      const connector = url.includes('?') ? '&' : '?';
-      return `${url}${connector}autoplay=1&rel=0&modestbranding=1`;
+    const ytId = getYouTubeId(url);
+    if (ytId) {
+      return `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
     }
     if (url.includes('drive.google.com')) {
       const connector = url.includes('?') ? '&' : '?';
@@ -313,7 +313,9 @@ export default function App() {
           <div
             style={{
               width: selectedLightboxItem.type === 'video' && selectedLightboxItem.aspectRatio === '9/16' ? 'auto' : '100%',
-              maxWidth: selectedLightboxItem.type === 'video' && selectedLightboxItem.aspectRatio === '9/16' ? 'calc(min(75vh, 680px) * 9 / 16)' : '1100px',
+              maxWidth: selectedLightboxItem.type === 'video'
+                ? (selectedLightboxItem.aspectRatio === '9/16' ? 'calc(min(75vh, 680px) * 9 / 16)' : '1100px')
+                : 'min(90vw, 850px)',
               position: 'relative',
               borderRadius: '16px',
               overflow: 'hidden',
@@ -323,28 +325,28 @@ export default function App() {
             }}
             onClick={(e) => e.stopPropagation()} // Prevent close on clicking the video card itself
           >
-            {selectedLightboxItem.type === 'video' && selectedLightboxItem.aspectRatio === '9/16' ? (
-              /* Height-first 9:16 aspect sizer — guarantees controls are never clipped on viewport height limits */
-              <div className="lb-video-9-16">
-                <iframe
-                  title={selectedLightboxItem.title}
-                  src={getEmbedUrl(selectedLightboxItem.source)}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
-            ) : (
-              /* 16:9 widescreen or 1:1 image */
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingBottom: selectedLightboxItem.type === 'video' ? '56.25%' : '100%',
-                  backgroundColor: '#000000',
-                }}
-              >
-                {selectedLightboxItem.type === 'video' ? (
-                  selectedLightboxItem.source.toLowerCase().endsWith('.mp4') ? (
+            {selectedLightboxItem.type === 'video' ? (
+              selectedLightboxItem.aspectRatio === '9/16' ? (
+                /* Height-first 9:16 aspect sizer — guarantees controls are never clipped on viewport height limits */
+                <div className="lb-video-9-16">
+                  <iframe
+                    title={selectedLightboxItem.title}
+                    src={getEmbedUrl(selectedLightboxItem.source)}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                /* 16:9 widescreen video */
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    paddingBottom: '56.25%',
+                    backgroundColor: '#000000',
+                  }}
+                >
+                  {selectedLightboxItem.source && selectedLightboxItem.source.toLowerCase().endsWith('.mp4') ? (
                     <video
                       src={selectedLightboxItem.source}
                       controls
@@ -373,27 +375,34 @@ export default function App() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
-                  )
-                ) : (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      background: 'linear-gradient(160deg, #0d1220 0%, #111827 50%, #07090e 100%)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(194,159,93,0.3)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                      <circle cx="12" cy="13" r="4"/>
-                    </svg>
-                  </div>
-                )}
+                  )}
+                </div>
+              )
+            ) : (
+              /* High-Resolution Photo Lightbox Preview */
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  maxHeight: '75vh',
+                  backgroundColor: '#000000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src={selectedLightboxItem.source || selectedLightboxItem.thumbnail}
+                  alt={selectedLightboxItem.title}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '75vh',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    display: 'block',
+                  }}
+                />
               </div>
             )}
 

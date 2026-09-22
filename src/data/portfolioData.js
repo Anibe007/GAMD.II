@@ -226,6 +226,56 @@ export const portfolioItems = [
     type: "image",
     source: "/images/Outdoor Portrait/Outdoor Portrait 3.JPG",
   },
+
+  // Portrait Photography
+  {
+    id: 80,
+    title: "Editorial Portrait I",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC00476.jpg",
+    type: "image",
+    source: "/images/portrait/DSC00476.jpg",
+  },
+  {
+    id: 81,
+    title: "Editorial Portrait II",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC00484.jpg",
+    type: "image",
+    source: "/images/portrait/DSC00484.jpg",
+  },
+  {
+    id: 82,
+    title: "Editorial Portrait III",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC00490.jpg",
+    type: "image",
+    source: "/images/portrait/DSC00490.jpg",
+  },
+  {
+    id: 83,
+    title: "Editorial Portrait IV",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC00496.jpg",
+    type: "image",
+    source: "/images/portrait/DSC00496.jpg",
+  },
+  {
+    id: 84,
+    title: "Studio Portrait V",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC09220.jpg",
+    type: "image",
+    source: "/images/portrait/DSC09220.jpg",
+  },
+  {
+    id: 85,
+    title: "Studio Portrait VI",
+    category: "portrait",
+    thumbnail: "/images/portrait/DSC09282.jpg",
+    type: "image",
+    source: "/images/portrait/DSC09282.jpg",
+  },
 ];
 
 

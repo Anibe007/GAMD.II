@@ -35,29 +35,47 @@ export default function Showreel({ onOpenLightbox }) {
               backgroundColor: '#000000',
             }}
           >
-            {/* Video Thumbnail & Play Button Overlay */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(135deg, #0d1220 0%, #07090e 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.5s ease',
-              }}
-              onMouseEnter={(e) => {
-                const btn = e.currentTarget.querySelector('.play-btn');
-                if (btn) btn.style.transform = 'scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                const btn = e.currentTarget.querySelector('.play-btn');
-                if (btn) btn.style.transform = 'scale(1)';
-              }}
-            >
+              {/* Video Thumbnail Image */}
+              {showreelVideo.thumbnail && (
+                <img
+                  src={showreelVideo.thumbnail}
+                  alt={showreelVideo.title}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              )}
+
+              {/* Gradient Overlay & Play Button */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(180deg, rgba(7, 9, 14, 0.2) 0%, rgba(7, 9, 14, 0.65) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(180deg, rgba(7, 9, 14, 0.1) 0%, rgba(7, 9, 14, 0.5) 100%)';
+                  const btn = e.currentTarget.querySelector('.play-btn');
+                  if (btn) btn.style.transform = 'scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(180deg, rgba(7, 9, 14, 0.2) 0%, rgba(7, 9, 14, 0.65) 100%)';
+                  const btn = e.currentTarget.querySelector('.play-btn');
+                  if (btn) btn.style.transform = 'scale(1)';
+                }}
+              >
               {/* Play Button Circle */}
               <div
                 className="play-btn"

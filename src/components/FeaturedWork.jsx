@@ -73,7 +73,16 @@ export default function FeaturedWork({ onOpenLightbox }) {
               onClick={() => onOpenLightbox(item)}
             >
               <div className="card-sizer" />
-              <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+              {item.thumbnail ? (
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="item-thumb"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="item-thumb" style={{ background: 'linear-gradient(135deg, #0d1220 0%, #111827 50%, #07090e 100%)' }} />
+              )}
 
               {/* Hover Overlay / Indicator */}
               <div className="item-overlay">
